@@ -2,8 +2,7 @@
 node_modules/
 
 # MCP-Registry auth tokens (never commit)
-.mcpregistry_github_token
-.mcpregistry_registry_token
+.mcpregistry_*
 
 # npm / env
 .npmrc

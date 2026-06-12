@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.c64dos-png/vector-mirror",
+  "description": "Deterministic SVG perception for LLM agents — measures, never guesses. MCP server.",
+  "repository": {
+    "url": "https://github.com/c64dos-png/vector-mirror",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "vector-mirror",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
