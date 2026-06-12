@@ -1,0 +1,50 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "STATUS: ✓ Alles korrekt\n\nSZENE: 100×100, 2 Elemente (viewBox: 0 0 100 100)\n├─ rect#bg: A1-D4, lightblue ✓\n└─ circle#sun: B2-D3, gold ✓"
+    }
+  ],
+  "structuredContent": {
+    "status": "PASS",
+    "iteration": {
+      "sequence": 1,
+      "previous_issues": 0,
+      "current_issues": 0,
+      "total_issues": 0,
+      "returned_issues": 0,
+      "suppressed": 0,
+      "convergence": "SOLVED",
+      "analysisId": "f5a9d2a3-73ff-4b36-9dbf-60e0422f7b8f"
+    },
+    "scene": {
+      "width": 100,
+      "height": 100,
+      "grid": "4x4",
+      "elements": [
+        {
+          "id": "bg",
+          "tag": "rect",
+          "cell": "A1-D4",
+          "color": "lightblue",
+          "status": "ok",
+          "bbox_reliability": "reliable",
+          "parent_tag": "svg"
+        },
+        {
+          "id": "sun",
+          "tag": "circle",
+          "cell": "B2-D3",
+          "color": "gold",
+          "status": "ok",
+          "bbox_reliability": "reliable",
+          "parent_tag": "svg"
+        }
+      ],
+      "canvas_validity": "valid"
+    },
+    "corrections": [],
+    "unchecked": [],
+    "diff": []
+  }
+}

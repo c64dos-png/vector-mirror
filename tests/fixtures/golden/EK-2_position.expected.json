@@ -1,0 +1,17 @@
+{
+  "ek": "EK-2_position",
+  "tool": "inspect",
+  "constraints": [],
+  "derivation": "ANTI-ZIRK (REGEL-2): Grid-Zell-Mapping aus den grid.js-Spec-Formeln HAND-abgeleitet, NICHT abgelesen. W=200 -> cellsX=clamp(round(200/50)=4,4,16)=4, cellW=200/4=50, gleich fuer Y -> grid='4x4'. px (rect x=20 y=20 w=8 h=8): center=(24,24); col=floor((24-0)/50)=0='A', row=floor((24-0)/50)=0->'1' -> cell='A1'. span (§H10 R11-04, halboffenes Intervall [x,x+w), end-exklusiv): sCol=floor((20)/50)=0, sRow=0, eCol=max(0,ceil((20+8)/50)-1)=max(0,1-1)=0, eRow=0 -> sCol==eCol && sRow==eRow -> span=null -> reported cell='A1'. bg (rect 0,0,200,200): span sCol=0,sRow=0, eCol=max(0,ceil((0+200)/50)-1)=max(0,4-1)=3='D', eRow=3 -> span='A1-D4' (mehrzellig). WERTE BIT-IDENTISCH zur Vor-R11-04-Formel (hand-nachgerechnet). Reported cell = span||cell. Erwartete Felder (grid + cell pro id) sind die Spec-Wahrheit; Test PARTIAL-matcht NUR grid und cell.",
+  "expected": {
+    "scene": {
+      "grid": "4x4",
+      "width": 200,
+      "height": 200,
+      "elements": [
+        { "id": "px", "tag": "rect", "cell": "A1" },
+        { "id": "bg", "tag": "rect", "cell": "A1-D4" }
+      ]
+    }
+  }
+}

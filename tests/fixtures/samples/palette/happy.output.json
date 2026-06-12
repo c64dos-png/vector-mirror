@@ -1,0 +1,22 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "PALETTE: 2 Elemente\n  rect#bg: lightblue\n  circle#sun: gold"
+    }
+  ],
+  "structuredContent": {
+    "colors": [
+      {
+        "id": "bg",
+        "fill": "lightblue",
+        "stroke": null
+      },
+      {
+        "id": "sun",
+        "fill": "gold",
+        "stroke": null
+      }
+    ]
+  }
+}

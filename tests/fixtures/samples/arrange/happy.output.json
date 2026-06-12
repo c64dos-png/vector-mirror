@@ -1,0 +1,16 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "ARRANGE: 1 Element platziert\n  #sun: transform=\"translate(30 30)\""
+    }
+  ],
+  "structuredContent": {
+    "attributes": {
+      "sun": {
+        "transform": "translate(30 30)"
+      }
+    },
+    "warnings": []
+  }
+}

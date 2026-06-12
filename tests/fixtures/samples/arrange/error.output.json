@@ -1,0 +1,14 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "ARRANGE: 0 Elemente platziert\n\nWARNUNGEN: 1\n  ⚠ UNKNOWN-CONSTRAINT-TYPE hat keine arrange-Funktion"
+    }
+  ],
+  "structuredContent": {
+    "attributes": {},
+    "warnings": [
+      "UNKNOWN-CONSTRAINT-TYPE hat keine arrange-Funktion"
+    ]
+  }
+}

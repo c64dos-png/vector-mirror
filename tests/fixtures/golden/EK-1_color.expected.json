@@ -1,0 +1,13 @@
+{
+  "ek": "EK-1_color",
+  "tool": "palette",
+  "constraints": [],
+  "derivation": "ANTI-ZIRK (REGEL-2): Farb-Wahrheit aus der W3C-Named-Color-Tabelle, NICHT aus rgbToColorName-Output. #ffffff IST exakt W3C 'white' (DeltaE=0), #ff0000 IST exakt 'red', #0000ff IST exakt 'blue'. parseColor (CIE-Lab-Nearest, lib/palette.js) MUSS bei Exakt-Hex den exakten W3C-Namen liefern. Reihenfolge = Dokument-Reihenfolge (structured.js slice(0,7) erhaelt sie): bg, dot, box. Erwartete Felder sind die unabhaengig aus der Spec abgeleitete Farb-Wahrheit; der Test PARTIAL-matcht NUR diese (id->fill).",
+  "expected": {
+    "colors": [
+      { "id": "bg", "fill": "white" },
+      { "id": "dot", "fill": "red" },
+      { "id": "box", "fill": "blue" }
+    ]
+  }
+}

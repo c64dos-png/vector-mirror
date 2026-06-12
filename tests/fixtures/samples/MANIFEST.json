@@ -1,0 +1,143 @@
+{
+  "generator": "tests/fixtures/samples/_generate.mjs",
+  "purpose": "FIX_PLAN §1.2 R2-F01 ajv batch-validate + mcp-inspector roundtrip corpus",
+  "headHash": "5105549ff6cfd257bee20bcdd2075e07e642821d",
+  "capturedAt": "2026-06-10T23:45:44.483Z",
+  "totalSamples": 11,
+  "happyCount": 7,
+  "errorCount": 4,
+  "samples": [
+    {
+      "id": "analyze-happy",
+      "tool": "vector_mirror_analyze",
+      "kind": "happy",
+      "sourceType": "pipeline-capture",
+      "inputPath": "analyze/happy.input.svg",
+      "outputPath": "analyze/happy.output.json",
+      "schema": "analyzeOutput",
+      "isError": false,
+      "capturedAt": "2026-06-10T23:45:44.483Z",
+      "headHash": "5105549ff6cfd257bee20bcdd2075e07e642821d"
+    },
+    {
+      "id": "analyze-error",
+      "tool": "vector_mirror_analyze",
+      "kind": "error",
+      "sourceType": "pipeline-capture",
+      "inputPath": "analyze/error.input.svg",
+      "outputPath": "analyze/error.output.json",
+      "schema": "analyzeOutput",
+      "isError": false,
+      "capturedAt": "2026-06-10T23:45:44.483Z",
+      "headHash": "5105549ff6cfd257bee20bcdd2075e07e642821d"
+    },
+    {
+      "id": "compare-happy",
+      "tool": "vector_mirror_compare",
+      "kind": "happy",
+      "sourceType": "pipeline-capture",
+      "inputPath": "compare/happy.input.json",
+      "outputPath": "compare/happy.output.json",
+      "schema": "analyzeOutput",
+      "isError": false,
+      "capturedAt": "2026-06-10T23:45:44.483Z",
+      "headHash": "5105549ff6cfd257bee20bcdd2075e07e642821d"
+    },
+    {
+      "id": "inspect-happy",
+      "tool": "vector_mirror_inspect",
+      "kind": "happy",
+      "sourceType": "pipeline-capture",
+      "inputPath": "inspect/happy.input.svg",
+      "outputPath": "inspect/happy.output.json",
+      "schema": "inspectOutput",
+      "isError": false,
+      "capturedAt": "2026-06-10T23:45:44.483Z",
+      "headHash": "5105549ff6cfd257bee20bcdd2075e07e642821d"
+    },
+    {
+      "id": "inspect-error",
+      "tool": "vector_mirror_inspect",
+      "kind": "error",
+      "sourceType": "pipeline-capture",
+      "inputPath": "inspect/error.input.svg",
+      "outputPath": "inspect/error.output.json",
+      "schema": "inspectOutput",
+      "isError": false,
+      "capturedAt": "2026-06-10T23:45:44.483Z",
+      "headHash": "5105549ff6cfd257bee20bcdd2075e07e642821d"
+    },
+    {
+      "id": "palette-happy",
+      "tool": "vector_mirror_palette",
+      "kind": "happy",
+      "sourceType": "pipeline-capture",
+      "inputPath": "palette/happy.input.svg",
+      "outputPath": "palette/happy.output.json",
+      "schema": "paletteOutput",
+      "isError": false,
+      "capturedAt": "2026-06-10T23:45:44.483Z",
+      "headHash": "5105549ff6cfd257bee20bcdd2075e07e642821d"
+    },
+    {
+      "id": "palette-error",
+      "tool": "vector_mirror_palette",
+      "kind": "error",
+      "sourceType": "pipeline-capture",
+      "inputPath": "palette/error.input.svg",
+      "outputPath": "palette/error.output.json",
+      "schema": "paletteOutput",
+      "isError": true,
+      "capturedAt": "2026-06-10T23:45:44.483Z",
+      "headHash": "5105549ff6cfd257bee20bcdd2075e07e642821d"
+    },
+    {
+      "id": "arrange-happy",
+      "tool": "vector_mirror_arrange",
+      "kind": "happy",
+      "sourceType": "pipeline-capture",
+      "inputPath": "arrange/happy.input.json",
+      "outputPath": "arrange/happy.output.json",
+      "schema": "arrangeOutput",
+      "isError": false,
+      "capturedAt": "2026-06-10T23:45:44.483Z",
+      "headHash": "5105549ff6cfd257bee20bcdd2075e07e642821d"
+    },
+    {
+      "id": "arrange-error",
+      "tool": "vector_mirror_arrange",
+      "kind": "error",
+      "sourceType": "pipeline-capture",
+      "inputPath": "arrange/error.input.json",
+      "outputPath": "arrange/error.output.json",
+      "schema": "arrangeOutput",
+      "isError": false,
+      "capturedAt": "2026-06-10T23:45:44.483Z",
+      "headHash": "5105549ff6cfd257bee20bcdd2075e07e642821d"
+    },
+    {
+      "id": "constraints-happy",
+      "tool": "vector_mirror_constraints",
+      "kind": "happy",
+      "sourceType": "pipeline-capture",
+      "inputPath": "constraints/happy.input.json",
+      "outputPath": "constraints/happy.output.json",
+      "schema": "constraintsOutput",
+      "isError": false,
+      "capturedAt": "2026-06-10T23:45:44.483Z",
+      "headHash": "5105549ff6cfd257bee20bcdd2075e07e642821d"
+    },
+    {
+      "id": "status-happy",
+      "tool": "vector_mirror_status",
+      "kind": "happy",
+      "sourceType": "pipeline-capture",
+      "inputPath": "status/happy.input.json",
+      "outputPath": "status/happy.output.json",
+      "schema": "statusOutput",
+      "isError": false,
+      "capturedAt": "2026-06-10T23:45:44.483Z",
+      "headHash": "5105549ff6cfd257bee20bcdd2075e07e642821d"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "_doc": "DoD-8 Baseline-Allowlist. Jeder knownRed-Eintrag = EIN bekannt-rotes Suite mit Begruendung. Das Gate failt BIDIREKTIONAL: (a) ein gelistetes Suite ist NICHT mehr exakt so rot (heimlich geheilt -> Allowlist veraltet) ODER (b) ein NICHT-gelistetes Suite wird rot (neue Regression). Positiv-Beweis: PASS <=> (Exit==erwartet) ^ (Erfolgs-Signatur PRAESENT) ^ (keine Fehler-Signatur).",
+  "knownRed": {
+    "tests/audit/red_audit_reproducers.mjs": {
+      "expectExit": 1,
+      "expectStdoutContains": "=== 1 UNERWARTETE ABWEICHUNG",
+      "expectFailLabelContains": "Beide SVGs erzeugen identische auto-IDs",
+      "maxFailMarks": 1,
+      "reason": "Auto-ID Stable-Path-Kollision: 2 id-lose SVGs erzeugen kollidierende Auto-IDs (_rect1). Semantischer Befund, kein Test-Bruch. Ref: red_audit_reproducers.mjs Z.187-191; identisch am Stand 79859e2.",
+      "ticket": "F-AUTOID-COLLISION (internal register)"
+    }
+  },
+  "specialLaunch": {
+    "tests/integration/stress_pagepool.mjs": {
+      "nodeArgs": ["--expose-gc"],
+      "class": "report-only",
+      "reason": "Memory/Stress-Test (kein Honesty-Korrektheits-Gate). Braucht --expose-gc; Exit 2 ohne Flag != Red. Informativ im full-Report, NICHT exit-bestimmend."
+    }
+  }
+}

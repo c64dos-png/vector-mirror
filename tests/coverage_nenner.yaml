@@ -1,0 +1,705 @@
+# coverage_nenner.yaml — DoD-6 SSOT: der NENNER aller bekannten Blindstellen-/Signal-Klassen.
+# Spec: docs/internal/an internal spec (Nenner-Schema, 5 Kategorien).
+# Gepruft von scripts/coverage_check.mjs (vom Gate gerufen, blockierend):
+#   Richtung →  jede kategorie:signal hat existierenden forcing_test
+#   Richtung ←  binär-sicherer Code-Vokabular-Scan: jedes emittierbare Signal ∉ Nenner ⇒ ROT
+#   reserviert  0 Emissions-Stellen außerhalb des REASON_CODES-Katalogs
+#
+# FORMAT (strikt, vom Mini-Parser in coverage_check.mjs erzwungen):
+#   Einträge beginnen mit `- signal:`; danach flache `key: value`-Zeilen (4 Spaces Einzug).
+#   Erlaubte kategorie: signal | grenze | werkzeug | reserviert | defensiv
+#   Pflichtfelder: signal, achse, quelle, kategorie
+#     kategorie signal     → forcing_test (Datei muss existieren UND das
+#                            forcing_token ENTHALTEN; forcing_token optional,
+#                            Default = signal-String — Umbenennungs-/
+#                            Entleerungs-Drift wird so rot)
+#     kategorie grenze     → doku_ref
+#     kategorie werkzeug   → grund (wird PFLICHTIG bei Produktiv-Verdrahtung)
+#     kategorie reserviert → katalog (Deklarations-Ort)
+#     kategorie defensiv   → code_witness + grund (kein Fake-Forcing-Test)
+#   KATEGORIE-WANDEL-WACHE: für werkzeug/defensiv/reserviert vergleicht der Check
+#   die Scan-Fundstellen DATEI-genau gegen die in `quelle` genannten src-Dateien —
+#   Emission an neuem Ort ⇒ ROT („Kategorie-Drift … Nenner pflegen"). `quelle`
+#   daher bei Mehrfach-Stellen als Liste aller Dateien/Anker pflegen.
+#
+# SCAN-GRENZE (ehrlich dokumentiert): der Richtung-←-Scan deckt LITERAL-Emissionen
+# (Projekt-Konvention: Signale werden als UPPER_SNAKE-Literal über die Signal-Kanäle
+# warnings/reasons/markers-push, error-Code-Zeile, Frozen-Katalog, Schema-Enum
+# emittiert). Dynamisch komponierte Codes (z.B. sanitize_loss.reason
+# `ATTR_STRIPPED:${attr}`), Daten-Payloads innerhalb bereits genannter Signale
+# (sanitize_loss.reason-Werte TAG_STRIPPED/EXTERNAL_USE_NOT_RESOLVED, Diff-Typen
+# NEU/ENTFERNT/…) und Alias-Indirektion deckt die ZWEITE Verteidigungslinie:
+# Nenner-Pflege-Pflicht bei jedem neuen REGISTER-Blindstellen-Eintrag (Intent §IST-NICHT).
+#
+# Rekonstruiert MECHANISCH 2026-06-10 (binär-sichere Scans, D-029-fest);
+# Finishing-Runde R1–R5 (Codex-Schärfungen) 2026-06-10:
+# 53 Produktiv (50 signal + 3 defensiv) · 20 werkzeug · 18 grenze · 3 reserviert = 94.
+# (+3 signal 2026-06-11: §6 RELAIS error{code,hint} — NO_BASELINE/ANALYSIS_NOT_FOUND/ARRANGE_FAILED)
+# (§H10 2026-06-11: +1 signal CONSTRAINT_UNPARSEABLE; SEMANTIC_SUSPICIOUS reserviert→signal)
+# (§H10 P1 Patch-Runde 2026-06-11: +1 signal REFERENCE_HIDDEN — Symmetrie zu SUBJECT_HIDDEN)
+# pw = src/adapters/renderer/playwright.js · pl = src/pipeline.js
+
+version: 1
+
+eintraege:
+  # ── kategorie: signal — Element-Warnings (14) ────────────────────────────────
+  - signal: 3D_TRANSFORM_ANCESTOR
+    achse: struktur
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:3941,4489)"
+    kategorie: signal
+    forcing_test: tests/unit/test_3d_detection.js
+
+  - signal: NON_DETERMINISTIC_MOTION
+    achse: motion
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4490)"
+    kategorie: signal
+    forcing_test: tests/integration/test_frozen_clock_d2.mjs
+
+  - signal: CSS_TRANSFORM_2D_FLOAT_DRIFT
+    achse: struktur
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4498)"
+    kategorie: signal
+    forcing_test: tests/unit/test_regel3_invariants.js
+
+  - signal: USE_FILL_INDETERMINATE
+    achse: paint
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4506)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal3b_usecolor.mjs
+
+  - signal: PAINT_NOT_VISIBLE
+    achse: paint
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4515)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_paint_presence.mjs
+
+  - signal: PAINT_PRESENCE_INDETERMINATE
+    achse: paint
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4525)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_invisibility.mjs
+
+  - signal: PAINT_OVERFLOW
+    achse: paint
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4534)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_paint_extent.mjs
+
+  - signal: STATE_DEPENDENT
+    achse: state
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4544)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_state_dependent.mjs
+
+  - signal: MEDIA_DEPENDENT
+    achse: media
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4553) + src/pipeline.js:measureMediaStep (pl:875)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_media_dependent.mjs
+
+  - signal: MOTION_DEPENDENT
+    achse: motion
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4564)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_verdict_motion.mjs
+
+  - signal: COLOR_FROM_STROKE
+    achse: paint
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4575)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_zeroarea.mjs
+
+  # §H10 R11-06: Paint-Zeit-Achse — clock-rooted SMIL auf Paint-Kanälen
+  # (fill/opacity/…) war zwischen Geometrie-Gate und T1 (SMIL-blind) still.
+  - signal: PAINT_TIME_VARIANT
+    achse: motion
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk Paint-Zeit-Achse"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  - signal: paint_time_variant:true
+    achse: motion
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (smilTimePaintTargets); Schema schema.js elementSchema"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+    forcing_token: "paint_time_variant"
+
+  - signal: MULTIPLE_PAINT_SOURCES
+    achse: paint
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4583)"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  - signal: STATE_DETECTION_COARSE
+    achse: state
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk Stufe-3-Fallback (pw:4591)"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  - signal: REFERENCE_DANGLING
+    achse: sanitize
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4604)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_reference_dangling.mjs
+
+  # ── kategorie: signal — produktive Error-Codes (8) ───────────────────────────
+  - signal: INVALID_INPUT
+    achse: struktur
+    quelle: "src/adapters/renderer/playwright.js:resolve (pw:627)"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  - signal: SECURITY_VIOLATION
+    achse: sanitize
+    quelle: "src/adapters/renderer/playwright.js:resolve (pw:633,675)"
+    kategorie: signal
+    forcing_test: tests/integration/test_sanitizer_d1.mjs
+
+  - signal: SVG_TOO_LARGE
+    achse: struktur
+    quelle: "src/adapters/renderer/playwright.js:resolve (pw:642)"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  - signal: LOAD_FAILED
+    achse: struktur
+    quelle: "src/adapters/renderer/playwright.js:resolve (pw:766ff,869)"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  - signal: NO_SVG_FOUND
+    achse: struktur
+    quelle: "src/adapters/renderer/playwright.js:resolve/evaluate (pw:891)"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  - signal: EMPTY_SVG
+    achse: struktur
+    quelle: "src/adapters/renderer/playwright.js:resolve/evaluate (pw:925)"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  - signal: TOO_MANY_ELEMENTS
+    achse: struktur
+    quelle: "src/adapters/renderer/playwright.js:resolve/evaluate (pw:2857)"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  - signal: NO_ELEMENTS
+    achse: struktur
+    quelle: "src/adapters/renderer/playwright.js:resolve/evaluate (pw:4612)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal3_phantom.mjs
+
+  # ── kategorie: signal — §6 RELAIS Fehler-Kanal error{code,hint} (3) ──────────
+  # an internal spec §6: additives error{code,hint} in den Output-Schemata, NUR
+  # bei isError:true; hint wortidentisch in der Prosa (Parity). Zusätzliche
+  # MCP-Rand-Probe: tests/relais_red/probe_mcp_errorchannel.mjs.
+  - signal: NO_BASELINE
+    achse: verdikt
+    quelle: "src/pipeline.js:compare No-Baseline-Pfad (NO_BASELINE_HINT, eine Quelle)"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  - signal: ANALYSIS_NOT_FOUND
+    achse: verdikt
+    quelle: "src/pipeline.js:bookmark unbekannte analysisId (BOOKMARK_UNKNOWN_HINT)"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  - signal: ARRANGE_FAILED
+    achse: struktur
+    quelle: "src/interface/tools.js:arrange Handler-Catch (Entstehungs-Ort des Codes)"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  # ── kategorie: signal — produktive REASON_CODES (7) ──────────────────────────
+  - signal: CONSTRAINT_TYPE_UNKNOWN
+    achse: verdikt
+    quelle: "src/core/arbitrate.js:REASON_CODES/buildUnchecked (arbitrate:47,167)"
+    kategorie: signal
+    forcing_test: tests/unit/test_reasoncode_origin.js
+
+  - signal: SUBJECT_NOT_FOUND
+    achse: verdikt
+    quelle: "src/core/arbitrate.js:REASON_CODES (arbitrate:48); Producer core/constraints"
+    kategorie: signal
+    forcing_test: tests/unit/test_reasoncode_origin.js
+
+  - signal: REFERENCE_NOT_FOUND
+    achse: verdikt
+    quelle: "src/core/arbitrate.js:REASON_CODES (arbitrate:49); Producer core/constraints"
+    kategorie: signal
+    forcing_test: tests/unit/test_reasoncode_origin.js
+
+  - signal: MEASUREMENT_AMBIGUOUS
+    achse: verdikt
+    quelle: "src/core/arbitrate.js:REASON_CODES/buildUnchecked (arbitrate:51,175)"
+    kategorie: signal
+    forcing_test: tests/unit/test_reasoncode_origin.js
+
+  - signal: INVALID_MEASUREMENT
+    achse: verdikt
+    quelle: "src/core/arbitrate.js:REASON_CODES (arbitrate:52); Producer core/constraints/distance.js"
+    kategorie: signal
+    forcing_test: tests/unit/test_distance.js
+
+  - signal: SUBJECT_NOT_PAINTED
+    achse: verdikt
+    quelle: "src/pipeline.js:classifySubjectHonesty (pl:488)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_verdict_motion.mjs
+
+  - signal: SUBJECT_TIME_VARIANT
+    achse: verdikt
+    quelle: "src/pipeline.js:classifySubjectHonesty (pl:492)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_verdict_motion.mjs
+
+  # §H10 R11-21: Parse-Verweigerung am Ursprung (parseConstraints-Marker →
+  # checkAllConstraints pass:null bzw. arrange warnings[]) — kein stiller Drop,
+  # keine Uminterpretation, keine Wert-Fabrikation.
+  - signal: CONSTRAINT_UNPARSEABLE
+    achse: verdikt
+    quelle: "src/core/arbitrate.js:REASON_CODES; src/pipeline.js:parseConstraints/checkAllConstraints/arrange"
+    kategorie: signal
+    forcing_test: tests/unit/test_reasoncode_origin.js
+
+  # §H10 R11-11: erster ehrlicher Einsatz (Identitäts-Wache Selbst-Referenz) —
+  # von reserviert auf signal gehoben.
+  - signal: SEMANTIC_SUSPICIOUS
+    achse: verdikt
+    quelle: "src/core/arbitrate.js:REASON_CODES; src/pipeline.js:checkAllConstraints Identitäts-Wache"
+    kategorie: signal
+    forcing_test: tests/unit/test_reasoncode_origin.js
+
+  # §H10 R11-01: Existenz-Register — css-unsichtbar geskippte Elemente tragen
+  # einen ehrlichen MODEL-Code statt SPECIFICATION-Schuld (SUBJECT_NOT_FOUND).
+  - signal: SUBJECT_HIDDEN
+    achse: verdikt
+    quelle: "src/core/arbitrate.js:REASON_CODES; src/pipeline.js:checkAllConstraints Existenz-Register"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  # §H10 P1 (Patch-Runde): Symmetrie des Existenz-Registers — auch eine css-
+  # unsichtbare REFERENZ trägt den ehrlichen MODEL-Code statt der Existenz-Lüge
+  # REFERENCE_NOT_FOUND.
+  - signal: REFERENCE_HIDDEN
+    achse: verdikt
+    quelle: "src/core/arbitrate.js:REASON_CODES; src/pipeline.js:checkAllConstraints Existenz-Register (Referenz-Zweig)"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  - signal: hidden_elements:nonempty
+    achse: paint
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk Existenz-Register (Skip-Ort) → grid.js → structured.js scene.hidden_elements; Schema schema.js:hiddenElementsSchema"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+    forcing_token: "hidden_elements"
+
+  # §H10 R11-07: dritte Wache-Klasse — eine bbox, der das System selbst
+  # misstraut (not_measurable), trägt weder Korrektur noch grünes Verdikt.
+  - signal: SUBJECT_NOT_MEASURABLE
+    achse: verdikt
+    quelle: "src/core/arbitrate.js:REASON_CODES; src/pipeline.js:classifySubjectHonesty"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+
+  # ── kategorie: signal — Feld-Signale des Ehrlichkeits-Vertrags (18) ──────────
+  - signal: paint_visible:false
+    achse: paint
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4463); Schema schema.js:269"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_paint_presence.mjs
+    forcing_token: "paint_visible === false"
+
+  - signal: paint_visible:indeterminate
+    achse: paint
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4463); Schema schema.js:269"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_invisibility.mjs
+    forcing_token: "'indeterminate'"
+
+  - signal: state_dependent:true
+    achse: state
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4466); Schema schema.js:279"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_state_dependent.mjs
+    forcing_token: "state_dependent === true"
+
+  - signal: media_dependent:true
+    achse: media
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4469) + src/pipeline.js:measureMediaStep (pl:870, OR-only)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_media_dependent.mjs
+    forcing_token: "media_dependent"
+
+  - signal: motion_dependent:true
+    achse: motion
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4473); Schema schema.js:316"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_verdict_motion.mjs
+    forcing_token: "motion_dependent"
+
+  - signal: bbox_reliability:not_measurable
+    achse: struktur
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4019; Pfade: 3D + Non-SMIL-Motion); Schema schema.js:212"
+    kategorie: signal
+    forcing_test: tests/unit/test_3d_detection.js
+    forcing_token: "'not_measurable'"
+
+  - signal: bbox_reliability:approximate
+    achse: struktur
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4021); Schema schema.js:212"
+    kategorie: signal
+    forcing_test: tests/integration/test_self3d_reliability.mjs
+    forcing_token: "'approximate'"
+
+  - signal: has_paint_overflow:true
+    achse: paint
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4271,4447)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_paint_extent.mjs
+    forcing_token: "has_paint_overflow"
+
+  - signal: visual_bbox:rect
+    achse: paint
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4281,4324)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_paint_extent.mjs
+    forcing_token: "visual_bbox"
+
+  - signal: visual_bbox:not_measurable
+    achse: paint
+    quelle: "src/adapters/renderer/playwright.js:resolve/elementWalk (pw:4288,4318)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal4_paint.mjs
+    forcing_token: "visual_bbox"
+
+  - signal: sanitize_loss:nonempty
+    achse: sanitize
+    quelle: "src/adapters/renderer/playwright.js:resolve (pw:677,4642); stabilisiert pl:stabilizeSanitizeLoss"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_sanitize_loss_delivery.mjs
+    forcing_token: "sanitize_loss"
+
+  # §HEAL-7/A (F-TF-002): Produzent live verdrahtet (playwright.js setzt
+  # canvas.viewBoxValidity) — forcing_test von der test_honesty-Unit (synthetische
+  # classifyCanvas-Eingaben) auf die e2e-Forcing-Suite umgezogen (echte Pipeline,
+  # Müll-viewBox-/dimensionslos-Fixtures erzwingen das ERSCHEINEN am structured).
+  - signal: canvas_validity:default_replaced
+    achse: sanitize
+    quelle: "src/adapters/renderer/playwright.js:resolve/evaluate viewBoxValidity-Produzent (pw:~940) + src/pipeline.js:deriveCanvasValidity; Schema schema.js"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+    forcing_token: "'default_replaced'"
+
+  - signal: canvas_validity:degenerate
+    achse: sanitize
+    quelle: "src/adapters/renderer/playwright.js:resolve/evaluate viewBoxValidity-Produzent (pw:~940) + src/pipeline.js:deriveCanvasValidity; Schema schema.js"
+    kategorie: signal
+    forcing_test: tests/integration/test_coverage_forcing.mjs
+    forcing_token: "'degenerate'"
+
+  - signal: canvas_validity:lossy
+    achse: sanitize
+    quelle: "src/pipeline.js:deriveCanvasValidity/buildErrorResult (pl:676,709ff); Schema schema.js:386"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_r6_sanitize_loss_delivery.mjs
+    forcing_token: "'lossy'"
+
+  - signal: MEDIA_MEASURE_UNAVAILABLE
+    achse: media
+    quelle: "src/pipeline.js:withMeasureUnavailable (pl:777,890)"
+    kategorie: signal
+    forcing_test: tests/integration/test_heal_viewport_measure.mjs
+
+  - signal: suppressed:gt0
+    achse: struktur
+    quelle: "src/adapters/emitter/structured.js:formatStructured/formatInspect (structured:476,542) via core/honesty.js:countTruncation"
+    kategorie: signal
+    forcing_test: tests/unit/test_honesty_live.js
+    forcing_token: "suppressed"
+
+  - signal: truncated_warnings:nonempty
+    achse: struktur
+    quelle: "src/adapters/emitter/structured.js:formatStructured Hoist (structured:312)"
+    kategorie: signal
+    forcing_test: tests/unit/test_regel3_invariants.js
+    forcing_token: "truncated_warnings"
+
+  - signal: SIZE_FIX_UNSUPPORTED_FOR_TAG
+    achse: verdikt
+    quelle: "src/adapters/emitter/structured.js:buildFix (structured:212,222); Schema-Enum schema.js:183"
+    kategorie: signal
+    forcing_test: tests/unit/test_structured.js
+
+  # ── kategorie: defensiv — Emission nur via interner Fault (3) ────────────────
+  - signal: INTERNAL_ERROR
+    achse: struktur
+    quelle: "src/adapters/renderer/playwright.js:resolve Vokabular-Drift-Guards (pw:727,741)"
+    kategorie: defensiv
+    code_witness: "src/adapters/renderer/playwright.js:727,741"
+    grund: "Emission nur bei Vokabular-Drift in core/element_vocabulary.js (SPOTTER_TAGS_LIST vs isSpotterTag bzw. Case-Drift) — interner Bau-Fehler, von außen ohne Code-Mutation nicht erzwingbar; ehrliche Kategorie statt Theater-Test."
+
+  - signal: TIMELINE_NOT_FROZEN
+    achse: motion
+    quelle: "src/adapters/renderer/playwright.js:resolve/evaluate t=0-Freeze-Assert (pw:915)"
+    kategorie: defensiv
+    code_witness: "src/adapters/renderer/playwright.js:915"
+    grund: "Emission nur wenn die Engine pauseAnimations+setCurrentTime(0) nicht ehrt (getCurrentTime!==0) — Engine-Fault im gepinnten Chromium, von außen nicht erzwingbar; laut-statt-still-Assert."
+
+  - signal: SANITIZE_FAILED
+    achse: sanitize
+    quelle: "src/adapters/renderer/playwright.js:__probeFrozenGeometryAt u.a. (pw:4670; ferner 5325,6040,6766,6834,7042)"
+    kategorie: defensiv
+    code_witness: "src/adapters/renderer/playwright.js:4670"
+    grund: "Emission nur wenn sanitizeSvg selbst wirft/scheitert (interner Sanitizer-Fault) — jeder String-Input wird sonst sanitisiert-oder-abgelehnt; von außen nicht erzwingbar ohne Mutation."
+
+  # ── kategorie: werkzeug — __measure*/Probe-Marker, nicht produktiv verdrahtet (19) ──
+  # Gate-Hinweis (Spec): wird PFLICHTIG (kategorie signal + forcing_test), sobald
+  # einer dieser Marker produktiv verdrahtet wird (heute: Fehler werden von
+  # pipeline.js gefangen und als MEDIA_MEASURE_UNAVAILABLE/Selftest-Mismatch übersetzt).
+  - signal: TARGET_NOT_FOUND
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:__probeFrozenGeometryAt (pw:4697)"
+    kategorie: werkzeug
+    grund: "Probe-Fehlercode des Frozen-Clock-Selbsttests; erreicht nie den Produkt-Output (runSelftest übersetzt in Mismatch-Text)."
+
+  - signal: NO_CTM
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:__probeFrozenGeometryAt (pw:4701)"
+    kategorie: werkzeug
+    grund: "Probe-Fehlercode des Frozen-Clock-Selbsttests; erreicht nie den Produkt-Output."
+
+  - signal: MEASURE_FAILED
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:__measureMediaShadow (pw:5349) + measureViewportDivergence Ternary (pw:7190)"
+    kategorie: werkzeug
+    grund: "Offline-Mess-Einstieg bzw. Mess-Pfad-Fault; in der measureViewportDivergence-Kette von pipeline.js gefangen → MEDIA_MEASURE_UNAVAILABLE trägt produktiv."
+
+  - signal: MEASURE_TIMEOUT
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:measureViewportDivergence Ternary (pw:7190)"
+    kategorie: werkzeug
+    grund: "Timeout-Zweig des Mess-Pfads (e.measureTimeout); von pipeline.js gefangen → MEDIA_MEASURE_UNAVAILABLE trägt produktiv. Finishing-Fund R3/R4 (Ternary-Emission, vom Einzelliteral-Scan der Erstrunde nicht erfasst)."
+
+  - signal: BREAKPOINT_SCAN_FAILED
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:__measureMediaShadowStraddle (pw:6066,6294)"
+    kategorie: werkzeug
+    grund: "Mess-Marker; in measureViewportDivergence-Kette von pipeline.js gefangen → MEDIA_MEASURE_UNAVAILABLE trägt produktiv."
+
+  - signal: MEDIA_BREAKPOINT_UNRESOLVED
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:__measureMediaShadowStraddle (pw:6075,6304)"
+    kategorie: werkzeug
+    grund: "Mess-Marker, nicht produktiv verdrahtet."
+
+  - signal: HEAVY_DETECTION
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:__measureMediaShadowStraddle (pw:6081,6164,6308,6389)"
+    kategorie: werkzeug
+    grund: "Mess-Marker, nicht produktiv verdrahtet."
+
+  - signal: MEDIA_STRADDLE_INEFFECTIVE
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:__measureMediaShadowStraddle (pw:6128,6345)"
+    kategorie: werkzeug
+    grund: "Mess-Marker, nicht produktiv verdrahtet."
+
+  - signal: PASS_TIMEOUT
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:__measureMediaShadowStraddle (pw:6165)"
+    kategorie: werkzeug
+    grund: "Mess-Marker, nicht produktiv verdrahtet."
+
+  - signal: MEDIA_STRADDLE_PROBE_FAILED
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:__measureMediaShadowStraddle (pw:6349)"
+    kategorie: werkzeug
+    grund: "Mess-Marker, nicht produktiv verdrahtet."
+
+  - signal: MIRROR_FLAKE_AA
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:runMediaGoldenDiff (pw:6424)"
+    kategorie: werkzeug
+    grund: "Mess-Marker, nicht produktiv verdrahtet."
+
+  - signal: STATIC_DETECTION_FAILED
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:runMediaGoldenDiff (pw:6446,6448)"
+    kategorie: werkzeug
+    grund: "Mess-Marker, nicht produktiv verdrahtet."
+
+  - signal: OBJECT_BOUNDING_BOX_RESIDUAL
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:canonRecordAxes-Kette (pw:6534)"
+    kategorie: werkzeug
+    grund: "Mess-Marker, nicht produktiv verdrahtet."
+
+  - signal: USE_INSTANCE_RESIDUAL
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:canonRecordAxes-Kette (pw:6537)"
+    kategorie: werkzeug
+    grund: "Mess-Marker, nicht produktiv verdrahtet."
+
+  - signal: MEDIA_DIFF_MOTION_EXCLUDED
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:canonRecordAxes-Kette (pw:6540)"
+    kategorie: werkzeug
+    grund: "Mess-Marker, nicht produktiv verdrahtet."
+
+  - signal: STATIC_FAILED
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:__measureStaticMediaParityCheck (pw:6717)"
+    kategorie: werkzeug
+    grund: "Mess-Marker, nicht produktiv verdrahtet."
+
+  - signal: GOLDEN_DIFF_FAILED
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:__measureMediaGoldenDiff (pw:6790)"
+    kategorie: werkzeug
+    grund: "Mess-Marker, nicht produktiv verdrahtet."
+
+  - signal: INVALID_WIDTHS
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:__measureAtViewports (pw:6832)"
+    kategorie: werkzeug
+    grund: "Mess-Marker, nicht produktiv verdrahtet."
+
+  - signal: MEASURE_SELFTEST_FAILED
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:measureViewportDivergence (pw:7090)"
+    kategorie: werkzeug
+    grund: "Mess-Marker; von pipeline.js gefangen → MEDIA_MEASURE_UNAVAILABLE trägt produktiv."
+
+  - signal: WALK_FAILED
+    achse: werkzeug
+    quelle: "src/adapters/renderer/playwright.js:measureViewportDivergence (pw:7133)"
+    kategorie: werkzeug
+    grund: "Mess-Marker; von pipeline.js gefangen → MEDIA_MEASURE_UNAVAILABLE trägt produktiv."
+
+  # ── kategorie: reserviert — deklariert, nie emittiert (2) ────────────────────
+  # Gate assertet 0 Emissions-Stellen außerhalb des Katalogs (sonst ROT:
+  # "reserviert wurde emittierbar ohne Nenner-Pflege").
+  - signal: REFERENCE_DEGENERATE
+    achse: verdikt
+    quelle: "src/core/arbitrate.js:REASON_CODES (arbitrate:50)"
+    kategorie: reserviert
+    katalog: "src/core/arbitrate.js:REASON_CODES"
+
+  - signal: SCOPE_MISMATCH
+    achse: verdikt
+    quelle: "src/core/arbitrate.js:REASON_CODES (arbitrate:54)"
+    kategorie: reserviert
+    katalog: "src/core/arbitrate.js:REASON_CODES"
+
+  # ── kategorie: grenze — dokumentiert-unsignalisiert (18) ─────────────────────
+  - signal: grenze:mask_clip_geometrie
+    achse: paint
+    quelle: "INDEX.md:49 (Ehrliche Scope-Grenzen)"
+    kategorie: grenze
+    doku_ref: "INDEX.md:49"
+
+  - signal: grenze:object_bounding_box_invariant
+    achse: struktur
+    quelle: "INDEX.md:49 (Ehrliche Scope-Grenzen)"
+    kategorie: grenze
+    doku_ref: "INDEX.md:49"
+
+  - signal: grenze:height_aspect_ratio_container
+    achse: media
+    quelle: "INDEX.md:49 (Ehrliche Scope-Grenzen)"
+    kategorie: grenze
+    doku_ref: "INDEX.md:49"
+
+  - signal: grenze:use_shadow
+    achse: struktur
+    quelle: "INDEX.md:49 (Ehrliche Scope-Grenzen)"
+    kategorie: grenze
+    doku_ref: "INDEX.md:49"
+
+  - signal: grenze:F-AT-7-12_kollineares_2punkt_polygon
+    achse: struktur
+    quelle: "docs/internal/an internal spec §Residuen"
+    kategorie: grenze
+    doku_ref: "docs/internal/an internal spec:49"
+
+  - signal: grenze:D-028_analysisId_byte_instabil
+    achse: struktur
+    quelle: "docs/internal/an internal spec §Residuen"
+    kategorie: grenze
+    doku_ref: "docs/internal/an internal spec:51"
+
+  - signal: grenze:kurven_flaeche_0_kein_flag
+    achse: struktur
+    quelle: "docs/internal/an internal spec §Residuen"
+    kategorie: grenze
+    doku_ref: "docs/internal/an internal spec:52"
+
+  - signal: grenze:nested_svg_0dim_engine_divergenz
+    achse: struktur
+    quelle: "docs/internal/an internal spec §Residuen (w3c/svgwg#830)"
+    kategorie: grenze
+    doku_ref: "docs/internal/an internal spec:53"
+
+  - signal: grenze:state_media_verdikt_vorbehalt_deaktiviert
+    achse: verdikt
+    quelle: "docs/internal/an internal spec §Residuen"
+    kategorie: grenze
+    doku_ref: "docs/internal/an internal spec:29"
+
+  - signal: grenze:syncbase_repeat_ketten_still
+    achse: motion
+    quelle: "docs/internal/an internal spec §Residuen"
+    kategorie: grenze
+    doku_ref: "docs/internal/an internal spec:29"
+
+  - signal: grenze:motion_envelope_e9
+    achse: motion
+    quelle: "docs/internal/an internal spec §Residuen (G-001/G-002)"
+    kategorie: grenze
+    doku_ref: "docs/internal/an internal spec:29"
+
+  - signal: grenze:paar_rand_400_1920_container_schwellen
+    achse: media
+    quelle: "docs/internal/an internal spec §Residuen (P4)"
+    kategorie: grenze
+    doku_ref: "docs/internal/an internal spec:34"
+
+  - signal: grenze:js_komponenten_state_nth_oos
+    achse: state
+    quelle: "docs/internal/an internal spec §Residuen (ADR-001 ehrliche Grenzen)"
+    kategorie: grenze
+    doku_ref: "docs/internal/an internal spec:36"
+
+  - signal: grenze:use_bbox_traegt_e4_paint_verdikt
+    achse: paint
+    quelle: "docs/internal/an internal spec §Residuen (E2-Rest)"
+    kategorie: grenze
+    doku_ref: "docs/internal/an internal spec:28"
+
+  - signal: grenze:3d_zahlenschaden_orthografisch_offen
+    achse: struktur
+    quelle: "docs/internal/an internal spec §Residuen"
+    kategorie: grenze
+    doku_ref: "docs/internal/an internal spec:28"
+
+  - signal: grenze:F-AT-7-13_markerVisible_vertex_blind
+    achse: paint
+    quelle: "docs/internal/internal register F-AT-7-13"
+    kategorie: grenze
+    doku_ref: "docs/internal/internal register"
+
+  - signal: grenze:F-AT-7-14_use_shadow_paint_blindfleck_messung
+    achse: media
+    quelle: "docs/internal/internal register F-AT-7-14"
+    kategorie: grenze
+    doku_ref: "docs/internal/internal register"
+
+  - signal: grenze:F-AT-8-01_referenz_ehrlichkeit_verdikt
+    achse: verdikt
+    quelle: "docs/internal/internal register F-AT-8-01"
+    kategorie: grenze
+    doku_ref: "docs/internal/internal register"

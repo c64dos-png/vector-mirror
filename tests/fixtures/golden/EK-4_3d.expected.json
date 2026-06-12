@@ -1,0 +1,23 @@
+{
+  "ek": "EK-4_3d",
+  "tool": "inspect",
+  "constraints": ["#box3d CENTERED-IN #flat"],
+  "derivation": "ANTI-ZIRK (REGEL-2): Reliability-Klasse aus der §1.2/§1.4-Spec (playwright.js isAncestor3D-Walk) HAND-abgeleitet. g3d traegt style 'transform-style: preserve-3d; transform: rotateY(45deg)' -> computed.transformStyle='preserve-3d' UND computed.transform=matrix3d(...). isAncestor3D(box3d) walkt zum Vorfahr g3d -> Treffer -> box3d.bbox_reliability='not_measurable', warnings=['3D_TRANSFORM_ANCESTOR']. flat (kein 3D-Vorfahr) -> 'reliable'. SUPPRESSION (REGEL-3 Spotter-Anti-Luege, structured.js allowDeltas-Gate Z.359): analyze('#box3d CENTERED-IN #flat') -> correction fuer #box3d MUSS dx/dy/dw/dh/fix SUPPRIMIEREN, weil reliability != 'reliable'. Test PARTIAL-matcht: scene.elements[box3d].bbox_reliability + warnings, scene.elements[flat].bbox_reliability, UND analyze-correction[#box3d] traegt KEIN dx/dy/dw/dh/fix. cell wird NICHT geasserted (rotateY-projizierte bbox ist nicht Teil der anti-zirk-Wahrheit).",
+  "expected": {
+    "scene": {
+      "elements_contains": [
+        {
+          "id": "box3d",
+          "bbox_reliability": "not_measurable",
+          "warnings": ["3D_TRANSFORM_ANCESTOR"]
+        },
+        { "id": "flat", "bbox_reliability": "reliable" }
+      ]
+    },
+    "analyze_suppression": {
+      "constraints": ["#box3d CENTERED-IN #flat"],
+      "element": "#box3d",
+      "forbidden_keys": ["dx", "dy", "dw", "dh", "fix", "fixes"]
+    }
+  }
+}

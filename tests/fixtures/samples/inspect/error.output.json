@@ -1,0 +1,18 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "Fehler: Kein SVG-Element gefunden\n⚠ Hinweis: Sanitizer hat Semantik entfernt (id/name) — Messung referenzierender Elemente kann von der Quelle abweichen (canvas_validity=lossy)"
+    }
+  ],
+  "structuredContent": {
+    "scene": {
+      "width": 0,
+      "height": 0,
+      "grid": "0x0",
+      "elements": [],
+      "suppressed": 0,
+      "canvas_validity": "lossy"
+    }
+  }
+}

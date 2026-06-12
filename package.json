@@ -1,0 +1,65 @@
+{
+  "name": "vector-mirror",
+  "version": "1.0.0",
+  "description": "Deterministic SVG perception eye for LLM agents — renders in a real browser and reports what is actually where, in grid cells and W3C color names, with prose and structured output. Measures, never guesses. MCP server.",
+  "type": "module",
+  "main": "src/interface/tools.js",
+  "bin": {
+    "vector-mirror": "src/interface/server.js"
+  },
+  "mcpName": "io.github.c64dos-png/vector-mirror",
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/gate.mjs --tier=full",
+    "test:fast": "node scripts/gate.mjs --tier=fast",
+    "gate:docs": "node scripts/doc_budget.mjs",
+    "audit": "npm audit --audit-level=moderate",
+    "selftest": "node tests/audit/selftest.mjs",
+    "test:determinism": "node tests/integration/test_determinism.mjs",
+    "test:sanitizer": "node tests/integration/test_sanitizer_d1.mjs",
+    "test:use_graph": "node tests/unit/test_use_graph.js"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "llm",
+    "llm-agents",
+    "llm-tools",
+    "svg",
+    "svg-rendering",
+    "playwright",
+    "deterministic",
+    "perception",
+    "agent-tools"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/c64dos-png/vector-mirror.git"
+  },
+  "bugs": {
+    "url": "https://github.com/c64dos-png/vector-mirror/issues"
+  },
+  "homepage": "https://github.com/c64dos-png/vector-mirror#readme",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "async-mutex": "^0.5.0",
+    "isomorphic-dompurify": "2.36.0",
+    "opossum": "^9.0.0",
+    "playwright": "^1.40.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "fast-check": "^4.7.0"
+  }
+}

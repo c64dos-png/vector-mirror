@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# MCP-Registry auth tokens (never commit)
+.mcpregistry_github_token
+.mcpregistry_registry_token
+
+# npm / env
+.npmrc
+.env
+.env.*
+
+# Playwright artifacts / local caches
+test-results/
+playwright-report/
+.cache/
+
+# Editor / OS noise
+.DS_Store
+*.swp
+
+# Local databases / scratch
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+/tmp/
+
+# Test-run artifacts (gate writes a validation report here each run)
+sessions/

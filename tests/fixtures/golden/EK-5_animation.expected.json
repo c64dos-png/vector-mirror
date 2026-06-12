@@ -1,0 +1,21 @@
+{
+  "ek": "EK-5_animation",
+  "tool": "inspect",
+  "constraints": [],
+  "derivation": "ANTI-ZIRK (REGEL-2): t=0-Geometrie aus dem from-Wert (cx=30) HAND-abgeleitet, NICHT abgelesen. S4/D2 KONTRAKT (ersetzt die fruehere unguaranteed 'Scheduler-Glueck'-Annahme = F-TF-019-Klasse): der Renderer friert die SMIL-Timeline EXPLIZIT ein via svg.pauseAnimations() + svg.setCurrentTime(0) + erzwungenem Layout-Flush (getBoundingClientRect), und ASSERTET svg.getCurrentTime()===0 (sonst TIMELINE_NOT_FROZEN — kein stiller gelogener Frame). Frame-vs-Clock-KOPPLUNG empirisch belegt (gepinnter Chromium 147, frozen_clock_assert): #anim cx from=30 to=170 dur=2s -> Center-x=30 @ t=0 UND Center-x≈100 @ t=1.0 (30+(170-30)*0.5) -> die eingefrorene Uhr bewegt die GEMESSENE Geometrie, nicht nur getCurrentTime. #anim (circle cx=30 cy=100 r=15 @ t=0): center=(30,100); W=200,cellW=50 -> col=floor(30/50)=0='A', row=floor(100/50)=2->'3' -> cell='A3'. bbox=(15,85)-(45,115). span (§H10 R11-04, halboffenes Intervall [x,x+w), end-exklusiv): sCol=floor(15/50)=0, sRow=floor(85/50)=1, eCol=max(0,ceil((15+30)/50)-1)=max(0,1-1)=0, eRow=max(1,ceil((85+30)/50)-1)=max(1,3-1)=2 -> sCol==eCol(0) aber sRow(1)!=eRow(2) -> span='A2-A3' (mehrzellig vertikal) -> reported cell='A2-A3'. WERTE BIT-IDENTISCH zur Vor-R11-04-Formel (hand-nachgerechnet). color: #ffa500 IST exakt W3C 'orange' (parseColor). reliability='reliable' (kein transform/keine CSS-Motion auf circle selbst — SMIL ist eingefroren, nicht nicht-deterministisch). grid='4x4'. Test PARTIAL-matcht grid + (cell, color, bbox_reliability) fuer #anim PLUS frozen_clock_assert (Geometrie-Doppelbeleg cx=30@t0 / cx≈100@t1.0) — die anti-zirk-Wahrheit. WERTE BIT-IDENTISCH zur Vor-D2-Version (waren schon hand-abgeleitete t=0-Spec-Wahrheit, REGEL-2). REGRESSION-GUARD: weicht ein Wert nach D2 ab -> echter seek/Reflow-Bug = Honest-Red, NICHT expected.json nachziehen.",
+  "frozen_clock_assert": true,
+  "expected": {
+    "scene": {
+      "grid": "4x4",
+      "elements_contains": [
+        {
+          "id": "anim",
+          "tag": "circle",
+          "cell": "A2-A3",
+          "color": "orange",
+          "bbox_reliability": "reliable"
+        }
+      ]
+    }
+  }
+}

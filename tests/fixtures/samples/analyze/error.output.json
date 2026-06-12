@@ -1,0 +1,31 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "Fehler: Kein SVG-Element gefunden\n⚠ Hinweis: Sanitizer hat Semantik entfernt (id/name) — Messung referenzierender Elemente kann von der Quelle abweichen (canvas_validity=lossy)"
+    }
+  ],
+  "structuredContent": {
+    "status": "FAIL",
+    "iteration": {
+      "sequence": 1,
+      "previous_issues": 0,
+      "current_issues": 0,
+      "total_issues": 0,
+      "returned_issues": 0,
+      "suppressed": 0,
+      "convergence": "SOLVED",
+      "analysisId": "27cbcdb0-798b-42b2-8359-4b4a8761c80f"
+    },
+    "scene": {
+      "width": 0,
+      "height": 0,
+      "grid": "0x0",
+      "elements": [],
+      "canvas_validity": "lossy"
+    },
+    "corrections": [],
+    "unchecked": [],
+    "diff": []
+  }
+}

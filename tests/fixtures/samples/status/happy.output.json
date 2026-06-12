@@ -1,0 +1,27 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "Vector Mirror v2.0.0 | Browser: running | Letzter Stand: ja | 11 Constraint-Typen | Breaker: closed (fires=7, fails=0)"
+    }
+  ],
+  "structuredContent": {
+    "version": "2.0.0",
+    "browser": "running",
+    "lastAnalysis": true,
+    "constraintTypes": 11,
+    "breaker": {
+      "name": "render",
+      "state": "closed",
+      "fires": 7,
+      "successes": 7,
+      "failures": 0,
+      "timeouts": 0,
+      "rejects": 0,
+      "fallbacks": 0,
+      "semaphoreRejections": 0,
+      "latencyMean": 49
+    },
+    "calibration": null
+  }
+}

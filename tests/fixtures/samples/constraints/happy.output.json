@@ -1,0 +1,67 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "CONSTRAINTS: 11 Typen verfuegbar\n  CENTERED-IN: #subject CENTERED-IN #reference [+arrange]\n  NO-OVERLAP: #subject NO-OVERLAP #reference [+arrange]\n  INSIDE: #subject INSIDE #reference [+arrange]\n  ALIGNED-LEFT: #subject ALIGNED-LEFT #reference [+arrange]\n  ALIGNED-TOP: #subject ALIGNED-TOP #reference [+arrange]\n  LEFT-OF: #subject LEFT-OF #reference [+arrange]\n  ABOVE: #subject ABOVE #reference [+arrange]\n  DISTANCE-FROM: #subject DISTANCE-FROM #reference N [+arrange]\n  SAME-SIZE: #subject SAME-SIZE #reference [+arrange]\n  COLOR: #subject COLOR farbname\n  FILL: #subject FILL canvas [+arrange]"
+    }
+  ],
+  "structuredContent": {
+    "types": [
+      {
+        "type": "CENTERED-IN",
+        "syntax": "#subject CENTERED-IN #reference",
+        "hasArrange": true
+      },
+      {
+        "type": "NO-OVERLAP",
+        "syntax": "#subject NO-OVERLAP #reference",
+        "hasArrange": true
+      },
+      {
+        "type": "INSIDE",
+        "syntax": "#subject INSIDE #reference",
+        "hasArrange": true
+      },
+      {
+        "type": "ALIGNED-LEFT",
+        "syntax": "#subject ALIGNED-LEFT #reference",
+        "hasArrange": true
+      },
+      {
+        "type": "ALIGNED-TOP",
+        "syntax": "#subject ALIGNED-TOP #reference",
+        "hasArrange": true
+      },
+      {
+        "type": "LEFT-OF",
+        "syntax": "#subject LEFT-OF #reference",
+        "hasArrange": true
+      },
+      {
+        "type": "ABOVE",
+        "syntax": "#subject ABOVE #reference",
+        "hasArrange": true
+      },
+      {
+        "type": "DISTANCE-FROM",
+        "syntax": "#subject DISTANCE-FROM #reference N",
+        "hasArrange": true
+      },
+      {
+        "type": "SAME-SIZE",
+        "syntax": "#subject SAME-SIZE #reference",
+        "hasArrange": true
+      },
+      {
+        "type": "COLOR",
+        "syntax": "#subject COLOR farbname",
+        "hasArrange": false
+      },
+      {
+        "type": "FILL",
+        "syntax": "#subject FILL canvas",
+        "hasArrange": true
+      }
+    ]
+  }
+}

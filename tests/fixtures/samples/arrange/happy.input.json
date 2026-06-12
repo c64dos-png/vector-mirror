@@ -1,0 +1,22 @@
+{
+  "canvas": {
+    "width": 100,
+    "height": 100
+  },
+  "elements": [
+    {
+      "id": "bg",
+      "tag": "rect",
+      "width": 100,
+      "height": 100
+    },
+    {
+      "id": "sun",
+      "tag": "circle",
+      "r": 20
+    }
+  ],
+  "constraints": [
+    "#sun CENTERED-IN #bg"
+  ]
+}

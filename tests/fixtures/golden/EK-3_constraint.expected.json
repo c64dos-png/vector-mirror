@@ -1,0 +1,23 @@
+{
+  "ek": "EK-3_constraint",
+  "tool": "analyze",
+  "constraints": [
+    "#a CENTERED-IN #bg",
+    "#a NO-OVERLAP #b"
+  ],
+  "derivation": "ANTI-ZIRK (REGEL-2): Status/Issue-Count aus Geometrie + Constraint-Spec + §1.6-computeConvergence HAND-abgeleitet. #a center=(100,100) = viewBox-Mitte (bg center=(100,100)) -> CENTERED-IN #bg PASS (geometrisch exakt). #a bbox=(80..120,80..120), #b bbox=(90..130,80..120): 90<120 -> ueberlappen -> NO-OVERLAP FAIL. => failing=1, unchecked=0, totalIssues=1, status=FAIL (deriveStatus: failing>0). previousIssueCount=undefined -> §1.6/§H9-K-12 computeConvergence: KEINE Historie -> KEINE Trend-Behauptung -> 'BASELINE' (Rekalibrierung 2026-06-11: der fruehere Spec-Wert 'STAGNATING' leitete sich aus dem bewiesenen K-12-Wahrheitsfehler ab — Trend-Wort ohne zweiten Messpunkt; Honest-RED tests/h9_red/test_h9_k12.mjs pinnt die wahre Form). corrections enthaelt genau #a:NO-OVERLAP (gegen Referenz #b). Test PARTIAL-matcht status, iteration.total_issues, iteration.convergence + corrections_contains[#a:NO-OVERLAP] — die anti-zirk-Felder. dx/fix-Werte werden NICHT geasserted (waeren Tool-abhaengig).",
+  "expected": {
+    "status": "FAIL",
+    "iteration": {
+      "total_issues": 1,
+      "current_issues": 1,
+      "convergence": "BASELINE"
+    },
+    "corrections_contains": [
+      {
+        "element": "#a",
+        "constraint": "NO-OVERLAP"
+      }
+    ]
+  }
+}
