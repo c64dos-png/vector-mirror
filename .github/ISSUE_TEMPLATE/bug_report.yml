@@ -1,0 +1,64 @@
+name: Bug report
+description: Something measured wrong, crashed, or behaved non-deterministically
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. A minimal reproduction SVG
+        is the single most useful thing you can provide — vector-mirror is
+        deterministic, so a repro SVG almost always reproduces the bug exactly.
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: What did vector-mirror report, and why is it wrong?
+      placeholder: e.g. the circle at grid cell C4 was reported as "darkseagreen" but it is plain "green".
+    validations:
+      required: true
+  - type: textarea
+    id: repro-svg
+    attributes:
+      label: Reproduction SVG
+      description: >
+        Paste a minimal SVG that reproduces the problem. Strip everything that
+        is not needed to trigger the bug. This will be rendered verbatim into
+        a test case.
+      render: XML
+      placeholder: |
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="green"/>
+        </svg>
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs. actual output
+      description: What should the measurement say, and what did it say instead? Tool output (prose or structured) welcome.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: vector-mirror version
+      placeholder: "1.0.0 (npm ls vector-mirror)"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Node version, OS, and MCP client
+      placeholder: "Node 20.11, Ubuntu 22.04, Claude Code"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / additional context
+      description: Server stderr, stack traces, or anything else relevant.
+      render: shell
+    validations:
+      required: false
